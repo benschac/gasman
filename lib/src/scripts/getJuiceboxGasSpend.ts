@@ -1,38 +1,34 @@
-// require("dotenv").config();
+import {
+    getTapTransactions,
+    findPeelTransactions,
+    calculateGasSpendPerAddress,
+} from '../helpers'
 
-const {
-  getTapTransactions,
-  findPeelTransactions,
-  calculateGasSpendPerAddress,
-} = require("../helpers");
+export const getProjectGasSpend = async ({ startblock = '0', endblock = '999999999', terminalAddress = undefined, terminalFuncName = undefined, abi = '' }) => {
+    if (!startblock) {
+        console.error("Run failed. Specify start block.");
+        return;
+    }
 
-// async function main() {
-//   const startblock = process.argv[2];
-//   if (!startblock) {
-    // console.error("Run failed. Specify start block.");
-    // process.exit(1);
-//   }
+    if (!terminalAddress) {
+        console.error('specify terminal address')
+        return;
+    }
 
-//   const tapTransactions = await getTapTransactions({ startblock });
-//   const peelTaps = findPeelTransactions(tapTransactions);
-//   console.log(`Found ${peelTaps.length} \`tap\` transactions.`);
+    if (!terminalFuncName) {
+        console.error('specify terminal address')
+        return;
+    }
 
-//   const gas = await calculateGasSpendPerAddress(peelTaps);
+    if (!abi || abi.length) {
+        console.error('no abi')
+        return
+    }
 
-//   console.log(gas);
-// }
+    const tapTransactions = await getTapTransactions({ startblock, endblock, terminalAddress, terminalFuncName, abi });
+    const peelTaps = findPeelTransactions(tapTransactions);
+    console.log(`Found ${peelTaps.length} \`tap\` transactions.`);
 
-export const getJuiceboxGasSpend = async (startblock: number) => {
-  if (!startblock) {
-    console.error("Run failed. Specify start block.");
-  }
-
-  const tapTransactions = await getTapTransactions({ startblock });
-  const peelTaps = findPeelTransactions(tapTransactions);
-  console.log(`Found ${peelTaps.length} \`tap\` transactions.`);
-
-  const gas = await calculateGasSpendPerAddress(peelTaps);
-  return gas;
+    const gas = await calculateGasSpendPerAddress(peelTaps);
+    return gas;
 }
-
-// main();

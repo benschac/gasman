@@ -1,4 +1,6 @@
 export const TAP_FUNCTION_NAME = "tap";
+import * as fs from 'fs'
+
 export const PEEL_PROJECT_ID = 329;
 export const PEEL_CONTRIBUTORS = [
   "0xE16a238d207B9ac8B419C7A866b0De013c73357B", // aeolian
