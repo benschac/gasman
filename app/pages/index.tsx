@@ -1,4 +1,4 @@
-import {  getJuiceboxGasSpend, thing, getTotalGasSpend, getMultisigGasSpend} from 'lib'
+import {  getJuiceboxGasSpend, getTotalGasSpend, getMultisigGasSpend} from 'lib'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -8,14 +8,6 @@ import styles from '../styles/Home.module.css'
 const Home: NextPage = () => {
     const [txs, setTxs] = useState('')
 
-    useEffect(() => {
-        async function onStart() {
-            const res = await getJuiceboxGasSpend(0)
-            setTxs(JSON.stringify(res))
-            return res
-        }
-        onStart()
-    })
   return (
     <div className={styles.container}>
       <Head>
