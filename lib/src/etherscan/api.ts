@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from "axios";
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
 const baseURL = "https://api.etherscan.io/api";
@@ -6,8 +6,8 @@ const axiosInstance = axios.create({
   baseURL,
 });
 
-exports.listTransactions = (
-  contractAddress,
+export const listTransactions = (
+  contractAddress: any,
   { startblock, endblock } = { startblock: "0", endblock: "99999999" }
 ) => {
   return axiosInstance.get("", {
