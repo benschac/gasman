@@ -4,7 +4,13 @@ import {
     calculateGasSpendPerAddress,
 } from '../helpers'
 
-export const getProjectGasSpend = async ({ startblock = '0', endblock = '999999999', terminalAddress = undefined, terminalFuncName = undefined, abi = '' }) => {
+export const getProjectGasSpend = async ({ startblock = '0', endblock = '999999999', terminalAddress = undefined, terminalFuncName = undefined, abi }: {
+    startblock: string;
+    endblock: string;
+    terminalAddress: string | undefined
+    terminalFuncName: unknown
+    abi: unknown
+}) => {
     if (!startblock) {
         console.error("Run failed. Specify start block.");
         return;
@@ -20,7 +26,7 @@ export const getProjectGasSpend = async ({ startblock = '0', endblock = '9999999
         return;
     }
 
-    if (!abi || abi.length) {
+    if (!abi) {
         console.error('no abi')
         return
     }

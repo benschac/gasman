@@ -1,9 +1,9 @@
 // require("dotenv").config();
 
-const {
-  getMultisigTransactions,
-  calculateGasSpendPerAddress,
-} = require("../../helpers");
+import {
+    getMultisigTransactions,
+    calculateGasSpendPerAddress,
+} from '../helpers'
 
 // async function main() {
 //   const startblock = process.argv[2];
@@ -20,17 +20,17 @@ const {
 //   console.log(gas);
 // }
 
-export const getMultisigGasSpend = async (startblock: number) => {
-  if (!startblock) {
-    console.error("Run failed. Specify start block.");
-  }
+export const getMultisigGasSpend = async (startblock: string) => {
+    if (!startblock) {
+        console.error("Run failed. Specify start block.");
+    }
 
-  const transactions = await getMultisigTransactions({ startblock });
-  console.log(`Found ${transactions.length} multisig transactions`);
+    const transactions = await getMultisigTransactions({ startblock });
+    console.log(`Found ${transactions.length} multisig transactions`);
 
-  const gas = await calculateGasSpendPerAddress(transactions);
-  console.log(gas);
-  return gas
+    const gas = await calculateGasSpendPerAddress(transactions);
+    console.log(gas);
+    return gas
 
 }
 

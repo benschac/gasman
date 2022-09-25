@@ -1,11 +1,8 @@
-require("dotenv").config();
-
-const {
-  getTapTransactions,
-  findPeelTransactions,
+import {
+  getFnTransactions,
   calculateGasSpendPerAddress,
   getMultisigTransactions,
-} = require("../../helpers");
+} from '../helpers';
 
 // async function main() {
 //   const startblock = process.argv[2];
@@ -31,13 +28,16 @@ const {
 //   console.log(gas);
 // // // }
 
-export const getTotalGasSpend = async (startblock: number, endblock: number) => {
+export const getTotalGasSpend = async (
+  startblock: number,
+  endblock: number
+) => {
   if (!startblock) {
-    console.error("Run failed. Specify start block.");
+    console.error('Run failed. Specify start block.');
     process.exit(1);
   }
 
-  const tapTransactions = await getTapTransactions({ startblock, endblock });
+  const tapTransactions = await getFnTransactions({ startblock, endblock });
   const peelTaps = findPeelTransactions(tapTransactions);
   const multisigTransactions = await getMultisigTransactions({
     startblock,
@@ -49,7 +49,7 @@ export const getTotalGasSpend = async (startblock: number, endblock: number) => 
   console.log(`Found ${allTransactions.length} transactions.`);
   const gas = await calculateGasSpendPerAddress(allTransactions);
   console.log(gas);
-    return gas;
-}
+  return gas;
+};
 
 // main();
